@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_00jbfnv" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.15.2" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+  <bpmn:process id="Test2id" name="test2" isExecutable="true" camunda:historyTimeToLive="180">
+    <bpmn:userTask id="user1id" name="user1">
+      <bpmn:incoming>Flow_1l56ow2</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qtqn46</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1l56ow2" sourceRef="serviceid" targetRef="user1id" />
+    <bpmn:serviceTask id="serviceid" name="service1" camunda:delegateExpression="${test2Service1}">
+      <bpmn:incoming>Flow_116l05c</bpmn:incoming>
+      <bpmn:outgoing>Flow_1l56ow2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="endeventid" name="end">
+      <bpmn:incoming>Flow_0qtqn46</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0qtqn46" sourceRef="user1id" targetRef="endeventid" />
+    <bpmn:startEvent id="messagestart" name="MessagestsrtEvent">
+      <bpmn:outgoing>Flow_116l05c</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1i318x8" messageRef="Message_0vbm2al" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_116l05c" sourceRef="messagestart" targetRef="serviceid" />
+  </bpmn:process>
+  <bpmn:message id="Message_0vbm2al" name="orderCancelleds" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Test2id">
+      <bpmndi:BPMNShape id="Activity_0mjsmi9_di" bpmnElement="user1id">
+        <dc:Bounds x="590" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0m4h211_di" bpmnElement="serviceid">
+        <dc:Bounds x="350" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1hc9m7r_di" bpmnElement="endeventid">
+        <dc:Bounds x="832" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="841" y="142" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0t6f2nh_di" bpmnElement="messagestart">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="154" y="135" width="85" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1l56ow2_di" bpmnElement="Flow_1l56ow2">
+        <di:waypoint x="450" y="117" />
+        <di:waypoint x="590" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qtqn46_di" bpmnElement="Flow_0qtqn46">
+        <di:waypoint x="690" y="117" />
+        <di:waypoint x="832" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_116l05c_di" bpmnElement="Flow_116l05c">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="350" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

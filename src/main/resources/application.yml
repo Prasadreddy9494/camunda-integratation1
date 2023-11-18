@@ -1,0 +1,10 @@
+server:
+  port: 8976
+
+  camunda.bpm:
+    admin-user:
+      id: demo
+      password: demo
+      firstName: Demo
+    filter:
+      create: All tasks

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0etrw3b" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.15.2" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+  <bpmn:process id="Test1" name="test1" isExecutable="true" camunda:historyTimeToLive="180">
+    <bpmn:startEvent id="start" name="startEvent">
+      <bpmn:outgoing>Flow_0l2rary</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0l2rary" sourceRef="start" targetRef="user1" />
+    <bpmn:serviceTask id="Successserviceid" name="Successservice" camunda:delegateExpression="${successDelegate}">
+      <bpmn:incoming>successid</bpmn:incoming>
+      <bpmn:outgoing>Flow_1weqtl1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1weqtl1" sourceRef="Successserviceid" targetRef="userTask2id" />
+    <bpmn:userTask id="userTask2id" name="userTask2">
+      <bpmn:incoming>Flow_1weqtl1</bpmn:incoming>
+      <bpmn:incoming>Flow_1pkld5l</bpmn:incoming>
+      <bpmn:outgoing>Flow_1hatoum</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEventId" name="EndEvent">
+      <bpmn:incoming>Flow_1hatoum</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1hatoum" sourceRef="userTask2id" targetRef="EndEventId" />
+    <bpmn:exclusiveGateway id="Gateway_1qukhxp">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_0kl884d</bpmn:incoming>
+      <bpmn:outgoing>successid</bpmn:outgoing>
+      <bpmn:outgoing>failureid</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="successid" name="success" sourceRef="Gateway_1qukhxp" targetRef="Successserviceid">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${success==true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="failureid" name="failure" sourceRef="Gateway_1qukhxp" targetRef="failureserviceid">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${success==false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1pkld5l" sourceRef="failureserviceid" targetRef="userTask2id" />
+    <bpmn:serviceTask id="failureserviceid" name="failureservice" camunda:delegateExpression="${failureDelegate}">
+      <bpmn:incoming>failureid</bpmn:incoming>
+      <bpmn:outgoing>Flow_1pkld5l</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="user1" name="userTask1">
+      <bpmn:incoming>Flow_0l2rary</bpmn:incoming>
+      <bpmn:outgoing>Flow_1k7ulkt</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1k7ulkt" sourceRef="user1" targetRef="servicetestid" />
+    <bpmn:serviceTask id="servicetestid" name="servicetest" camunda:delegateExpression="${serviceTest}">
+      <bpmn:incoming>Flow_1k7ulkt</bpmn:incoming>
+      <bpmn:outgoing>Flow_0kl884d</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0kl884d" sourceRef="servicetestid" targetRef="Gateway_1qukhxp" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Test1">
+      <bpmndi:BPMNShape id="Event_1gyxs7z_di" bpmnElement="EndEventId">
+        <dc:Bounds x="1142" y="199" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1136" y="242" width="49" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_12ne4wv_di" bpmnElement="userTask2id">
+        <dc:Bounds x="960" y="177" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1e7h5d4_di" bpmnElement="Successserviceid">
+        <dc:Bounds x="810" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_11mpyd6_di" bpmnElement="failureserviceid">
+        <dc:Bounds x="780" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1qukhxp_di" bpmnElement="Gateway_1qukhxp" isMarkerVisible="true">
+        <dc:Bounds x="645" y="185" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="start">
+        <dc:Bounds x="162" y="199" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="155" y="242" width="51" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0a6vrlo_di" bpmnElement="user1">
+        <dc:Bounds x="270" y="177" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0megyar_di" bpmnElement="servicetestid">
+        <dc:Bounds x="450" y="177" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1hatoum_di" bpmnElement="Flow_1hatoum">
+        <di:waypoint x="1060" y="217" />
+        <di:waypoint x="1142" y="217" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1weqtl1_di" bpmnElement="Flow_1weqtl1">
+        <di:waypoint x="910" y="120" />
+        <di:waypoint x="1010" y="120" />
+        <di:waypoint x="1010" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1pkld5l_di" bpmnElement="Flow_1pkld5l">
+        <di:waypoint x="880" y="310" />
+        <di:waypoint x="1010" y="310" />
+        <di:waypoint x="1010" y="257" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vpynzc_di" bpmnElement="successid">
+        <di:waypoint x="670" y="185" />
+        <di:waypoint x="670" y="120" />
+        <di:waypoint x="810" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="665" y="149" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1o2sq5z_di" bpmnElement="failureid">
+        <di:waypoint x="670" y="235" />
+        <di:waypoint x="670" y="310" />
+        <di:waypoint x="780" y="310" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="671" y="270" width="30" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0kl884d_di" bpmnElement="Flow_0kl884d">
+        <di:waypoint x="550" y="217" />
+        <di:waypoint x="647" y="212" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0l2rary_di" bpmnElement="Flow_0l2rary">
+        <di:waypoint x="198" y="217" />
+        <di:waypoint x="270" y="217" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1k7ulkt_di" bpmnElement="Flow_1k7ulkt">
+        <di:waypoint x="370" y="217" />
+        <di:waypoint x="450" y="217" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
